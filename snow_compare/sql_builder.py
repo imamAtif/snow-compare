@@ -82,3 +82,31 @@ def build_missing_keys_both_tables_sql(
 
     return sql_query
 
+
+def build_duplicate_keys_sql(table: str, key: str) -> str:
+    """
+    Build SQL query to find duplicate keys in a table.
+    """
+    sql_query = (
+        f"SELECT {key}, COUNT(*) AS duplicate_count\n"
+        f"FROM {table}\n"
+        f"GROUP BY {key}\n"
+        f"HAVING COUNT(*) > 1;"
+    )
+
+    return sql_query
+
+
+def build_duplicate_multiple_keys_sql(table: str, keys: list) -> str:
+    """
+    Build SQL query to find duplicate keys in a table.
+    """
+    keys_str = ", ".join(keys)
+    sql_query = (
+        f"SELECT {keys_str}, COUNT(*) AS duplicate_count\n"
+        f"FROM {table}\n"
+        f"GROUP BY {keys_str}\n"
+        f"HAVING COUNT(*) > 1;"
+    )
+
+    return sql_query
