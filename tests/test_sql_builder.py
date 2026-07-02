@@ -1,4 +1,6 @@
 from snow_compare.sql_builder import (
+    build_duplicate_keys_sql,
+    build_duplicate_multiple_keys_sql,
     build_missing_keys_both_tables_sql,
     build_missing_keys_left_table_sql,
     build_missing_keys_right_table_sql,
@@ -75,3 +77,28 @@ def test_build_missing_keys_both_tables_sql_contains_left_right_and_key():
     assert "WHERE r.GUID IS NULL" in sql
     assert "WHERE l.GUID IS NULL" in sql
     assert "UNION ALL" in sql
+
+
+def test_build_duplicate_keys_sql_contains_table_and_key():
+    sql = build_duplicate_keys_sql(
+        table="DB.SCHEMA.TABLE",
+        key="GUID",
+    )
+
+    assert "DB.SCHEMA.TABLE" in sql
+    assert "GUID" in sql
+    assert "GROUP BY GUID" in sql
+    assert "HAVING COUNT(*) > 1" in sql
+
+
+def test_build_duplicate_multiple_keys_sql_contains_table_and_keys():
+    sql = build_duplicate_multiple_keys_sql(
+        table="DB.SCHEMA.TABLE",
+        keys=["GUID", "NAME"],
+    )
+
+    assert "DB.SCHEMA.TABLE" in sql
+    assert "GUID" in sql
+    assert "NAME" in sql
+    assert "GROUP BY GUID, NAME" in sql
+    assert "HAVING COUNT(*) > 1" in sql
