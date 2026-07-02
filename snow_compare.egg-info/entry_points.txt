@@ -1,2 +1,0 @@
-[console_scripts]
-snow-compare = snow_compare.cli:app
