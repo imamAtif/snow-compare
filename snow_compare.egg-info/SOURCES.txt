@@ -1,0 +1,12 @@
+README.md
+pyproject.toml
+snow_compare/__init__.py
+snow_compare/cli.py
+snow_compare/sql_builder.py
+snow_compare.egg-info/PKG-INFO
+snow_compare.egg-info/SOURCES.txt
+snow_compare.egg-info/dependency_links.txt
+snow_compare.egg-info/entry_points.txt
+snow_compare.egg-info/requires.txt
+snow_compare.egg-info/top_level.txt
+tests/test_sql_builder.py
